@@ -2,7 +2,6 @@
   "name": "cohere-chatbot",
   "type": "module",
   "scripts": {
-    "dev": "vercel dev" // or use `netlify dev`
-  },
-  "dependencies": {}
+    "dev": "vercel dev"
+  }
 }
