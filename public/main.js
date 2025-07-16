@@ -4,11 +4,13 @@ const chatBox = document.getElementById("chat-box");
 
 function appendMessage(sender, text) {
   const msg = document.createElement("div");
-  msg.className = `p-2 rounded text-sm whitespace-pre-wrap ${
+  msg.className = `max-w-[75%] p-3 rounded-lg mb-2 text-sm whitespace-pre-wrap shadow-md ${
     sender === "user"
-      ? "bg-blue-100 text-right"
-      : "bg-gray-200 text-left"
+      ? "bg-purple-700 text-white self-end rounded-tr-none"
+      : "bg-purple-200 text-purple-900 self-start rounded-tl-none"
   }`;
+
+  msg.style.alignSelf = sender === "user" ? "flex-end" : "flex-start";
   msg.innerText = text;
   chatBox.appendChild(msg);
   chatBox.scrollTop = chatBox.scrollHeight;
@@ -28,7 +30,7 @@ form.addEventListener("submit", async (e) => {
     const response = await fetch("/api/chat.js", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message })
+      body: JSON.stringify({ message }),
     });
 
     const rawText = await response.text();
