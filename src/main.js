@@ -3,36 +3,51 @@ const input = document.getElementById("user-input");
 const chatBox = document.getElementById("chat-box");
 
 function appendMessage(sender, text) {
-  const message = document.createElement("div");
-  message.className = `p-2 rounded ${sender === "user" ? "bg-blue-100 text-right" : "bg-gray-200 text-left"}`;
-  message.innerText = text;
-  chatBox.appendChild(message);
+  const msg = document.createElement("div");
+  msg.className = `p-2 rounded text-sm whitespace-pre-wrap ${
+    sender === "user"
+      ? "bg-blue-100 text-right"
+      : "bg-gray-200 text-left"
+  }`;
+  msg.innerText = text;
+  chatBox.appendChild(msg);
   chatBox.scrollTop = chatBox.scrollHeight;
 }
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
-  const userInput = input.value.trim();
-  if (!userInput) return;
 
-  appendMessage("user", userInput);
+  const message = input.value.trim();
+  if (!message) return;
+
+  appendMessage("user", message);
   input.value = "";
-
   appendMessage("bot", "Typing...");
 
   try {
-    const res = await fetch("/api/chat.js", {
+    const response = await fetch("/api/chat.js", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message: userInput }),
+      body: JSON.stringify({ message })
     });
 
-    const data = await res.json();
+    const text = await response.text();
+    let data;
+
+    try {
+      data = JSON.parse(text);
+    } catch (e) {
+      chatBox.lastChild.remove(); // remove "Typing..."
+      appendMessage("bot", "❌ Could not parse server response:");
+      appendMessage("bot", text);
+      return;
+    }
+
     chatBox.lastChild.remove(); // remove "Typing..."
-    appendMessage("bot", data.reply || "Sorry, I didn't get that.");
+    appendMessage("bot", data.reply || "❌ No reply received.");
   } catch (err) {
-    chatBox.lastChild.remove();
-    appendMessage("bot", "Error: Unable to contact the server.");
-    console.error(err);
+    chatBox.lastChild.remove(); // remove "Typing..."
+    appendMessage("bot", "❌ Network or server error:");
+    appendMessage("bot", err.message);
   }
 });
