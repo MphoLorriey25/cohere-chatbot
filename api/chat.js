@@ -1,7 +1,5 @@
 export default async function handler(req, res) {
-  if (req.method !== "POST") {
-    return res.status(405).end();
-  }
+  if (req.method !== "POST") return res.status(405).end();
 
   const { message } = req.body;
   const COHERE_API_KEY = process.env.COHERE_API_KEY;
@@ -13,7 +11,7 @@ export default async function handler(req, res) {
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      model: "command",  // or "command-light"
+      model: "command",
       prompt: message,
       max_tokens: 100,
       temperature: 0.7,
