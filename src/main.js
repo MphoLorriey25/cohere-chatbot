@@ -31,23 +31,23 @@ form.addEventListener("submit", async (e) => {
       body: JSON.stringify({ message })
     });
 
-    const text = await response.text();
+    const rawText = await response.text();
     let data;
 
     try {
-      data = JSON.parse(text);
-    } catch (e) {
+      data = JSON.parse(rawText);
+    } catch (err) {
       chatBox.lastChild.remove(); // remove "Typing..."
-      appendMessage("bot", "❌ Could not parse server response:");
-      appendMessage("bot", text);
+      appendMessage("bot", "⚠️ Server returned invalid response:");
+      appendMessage("bot", rawText);
       return;
     }
 
     chatBox.lastChild.remove(); // remove "Typing..."
-    appendMessage("bot", data.reply || "❌ No reply received.");
+    appendMessage("bot", data.reply || "⚠️ No reply received.");
   } catch (err) {
     chatBox.lastChild.remove(); // remove "Typing..."
-    appendMessage("bot", "❌ Network or server error:");
+    appendMessage("bot", "❌ Network error:");
     appendMessage("bot", err.message);
   }
 });
