@@ -21,30 +21,6 @@ Check out the chatbot here:
 
 ---
 
-## 🛠️ Setup and Deployment
-
-### Prerequisites
-
-- Node.js environment (for local testing)
-- [Cohere API key](https://dashboard.cohere.ai/api-keys)
-- Vercel account for deployment
-
-### Environment Variables
-
-Create a `.env` file or add in your Vercel dashboard:
-
-```
-
-COHERE\_API\_KEY=your\_cohere\_api\_key\_here
-
-```
-
-### Run Locally
-
-1. Clone the repository
-2. Install dependencies (if you add any backend packages)
-3. Start your development server (or deploy on Vercel)
-
 ### Deploy on Vercel
 
 1. Push your repo to GitHub
@@ -62,13 +38,10 @@ COHERE\_API\_KEY=your\_cohere\_api\_key\_here
 
 ---
 
-## 🎨 Customization
+## Contact Details
+📧 [lorrieym@gmail.com](mailto:lorrieym@gmail.com)  
+📞 [076 355 3963](tel:+27763553963)
 
-- Change the gradient and colors in `index.html` for your brand
-- Modify chat bubble styles in `main.js`
-- Extend backend in `api/chat.js` to add context or memory
-
----
 
 ## 💬 Feedback and Contributions
 
@@ -82,4 +55,3 @@ Created with ❤️ by Mpho.
 MIT License © 2025 Mpho
 ```
 
----
